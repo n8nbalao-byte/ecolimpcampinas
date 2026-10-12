@@ -1,0 +1,19 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  
+  # Deny access to .env
+  <Files .env>
+    Order allow,deny
+    Deny from all
+  </Files>
+
+  # API requests go to api folder
+  RewriteRule ^api/ - [L]
+
+  # All other requests fall back to index.html
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>
